@@ -1,0 +1,9 @@
+param.sfo
+*.elf
+*.velf
+*.vpk
+
+ignore
+
+flowit-vita/build
+flowit-vita/usb_update_files.sh
