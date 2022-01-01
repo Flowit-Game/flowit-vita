@@ -17,8 +17,8 @@ strings_i18n["en"] = {
     ["sound"]   = "sound",
     ["buttons"] = "buttons",
     ["done"]    = "done",
-    ["on"]      = "",
-    ["off"]     = "",
+    ["on"]      = "on",
+    ["off"]     = "off",
 
     ["level complete"] = "level complete",
     ["high score!"]    = "new record!",
