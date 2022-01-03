@@ -11,6 +11,16 @@ SETTINGS.buttons = {
     default = "xo",
     value = "xo",
 }
+SETTINGS.reset_button = {
+    options = {"triangle", "start"},
+    default = "triangle",
+    value = "triangle",
+}
+SETTINGS.confirmations = {
+    options = {"on", "off"},
+    default = "on",
+    value = "on",
+}
 
 local function reset_invalid_settings()
     for k, setting in pairs(SETTINGS) do
@@ -42,6 +52,10 @@ function load_settings()
                         SETTINGS.sound.value = val
                     elseif key == "buttons" then
                         SETTINGS.buttons.value = val
+                    elseif key == "reset_button" then
+                        SETTINGS.reset_button.value = val
+                    elseif key == "confirmations" then
+                        SETTINGS.confirmations.value = val
                     end
                 end
 

@@ -213,7 +213,7 @@ function handle_tap_ingame(tridata, x, y)
                 if get_next_unlocked_level(all_levels, game_status.pack, game_status.level) then
                     play_sound("click")
 
-                    if game_status.steps > 0 then
+                    if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                         show_dialog(DIALOG.NEXT_LEVEL)
                     else
                         go_to_next_level(tridata)
@@ -225,7 +225,7 @@ function handle_tap_ingame(tridata, x, y)
                 if get_prev_unlocked_level(all_levels, game_status.pack, game_status.level) then
                     play_sound("click")
 
-                    if game_status.steps > 0 then
+                    if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                         show_dialog(DIALOG.PREV_LEVEL)
                     else
                         go_to_prev_level(tridata)
@@ -234,14 +234,14 @@ function handle_tap_ingame(tridata, x, y)
 
             elseif tapped_control == "reset" then
                 play_sound("click")
-                if game_status.steps > 0 then
+                if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                     show_dialog(DIALOG.RESET_GAME)
                 else
                     reset_game(tridata)
                 end
             elseif tapped_control == "back" then
                 play_sound("click")
-                if game_status.steps > 0 then
+                if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                     show_dialog(DIALOG.LEVEL_MENU)
                 else
                     --reset_game(tridata)

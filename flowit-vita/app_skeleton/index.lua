@@ -83,6 +83,8 @@ text_dimensions(get_i18n("conf_prevlevel"), VD.font_msg1, message_font_name)
 text_dimensions(get_i18n("conf_reset"),     VD.font_msg1, message_font_name)
 --text_dimensions(get_i18n("high score!"),    VD.font_msg1, default_font_name)
 --text_dimensions(get_i18n("level complete"), VD.font_msg1, default_font_name)
+text_dimensions(get_i18n("xo_buttons"), VS.header_font, default_font_name)
+text_dimensions(get_i18n("confirmations"), VS.header_font, default_font_name)
 
 -- load settings
 load_settings()
@@ -172,7 +174,7 @@ while true do
                 if not is_showing_dialog then
                     if (button == BUTTON_SINGLE_LTRIGGER or button == BUTTON_HELD_LTRIGGER) then
                         if get_prev_unlocked_level(all_levels, game_status.pack, game_status.level) then
-                            if game_status.steps > 0 then
+                            if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                                 show_dialog(DIALOG.PREV_LEVEL)
                             else
                                 go_to_prev_level(tridata)
@@ -180,20 +182,22 @@ while true do
                         end
                     elseif (button == BUTTON_SINGLE_RTRIGGER or button == BUTTON_HELD_RTRIGGER) then
                         if get_next_unlocked_level(all_levels, game_status.pack, game_status.level) then
-                            if game_status.steps > 0 then
+                            if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                                 show_dialog(DIALOG.NEXT_LEVEL)
                             else
                                 go_to_next_level(tridata)
                             end
                         end
                     elseif (button == BUTTON_SINGLE_TRIANGLE) then
-                        if game_status.steps > 0 then
-                            show_dialog(DIALOG.RESET_GAME)
-                        else
-                            reset_game(tridata)
+                        if SETTINGS.reset_button.value == "triangle" then
+                            if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
+                                show_dialog(DIALOG.RESET_GAME)
+                            else
+                                reset_game(tridata)
+                            end
                         end
                     elseif (button == BUTTON_SINGLE_CROSS) then
-                        if game_status.steps > 0 then
+                        if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
                             show_dialog(DIALOG.LEVEL_MENU)
                         else
                             --reset_game(tridata)
@@ -202,6 +206,14 @@ while true do
                     elseif (button == BUTTON_SINGLE_SELECT) then
                         app_state_before_menu = app_state
                         app_state = APP_STATE_SETTINGS
+                    elseif (button == BUTTON_SINGLE_START) then
+                        if SETTINGS.reset_button.value == "start" then
+                            if (game_status.steps > 0) and (SETTINGS.confirmations.value ~= "off") then
+                                show_dialog(DIALOG.RESET_GAME)
+                            else
+                                reset_game(tridata)
+                            end
+                        end
                     end
                 elseif (cur_dialog == DIALOG.WIN) or (cur_dialog == DIALOG.WIN_HIGHSCORE) then
                     if (button == BUTTON_SINGLE_CIRCLE) or (button == BUTTON_SINGLE_CROSS) then
@@ -275,16 +287,24 @@ while true do
             end
         else
             if (button == BUTTON_SINGLE_LTRIGGER or button == BUTTON_HELD_LTRIGGER or button == BUTTON_SINGLE_UP or button == BUTTON_HELD_UP) then
-                if settings_sel_item == "buttons" then
-                    settings_sel_item = "sound"
-                elseif settings_sel_item == nil then
+                if settings_sel_item == nil then
+                    settings_sel_item = "confirmations"
+                elseif settings_sel_item == "confirmations" then
+                    settings_sel_item = "reset_button"
+                elseif settings_sel_item == "reset_button" then
                     settings_sel_item = "buttons"
+                elseif settings_sel_item == "buttons" then
+                    settings_sel_item = "sound"
                 end
             elseif (button == BUTTON_SINGLE_RTRIGGER or button == BUTTON_HELD_RTRIGGER or button == BUTTON_SINGLE_DOWN or button == BUTTON_HELD_DOWN) then
-                if settings_sel_item == "sound" then
-                    settings_sel_item = "buttons"
-                elseif settings_sel_item == nil then
+                if settings_sel_item == nil then
                     settings_sel_item = "sound"
+                elseif settings_sel_item == "sound" then
+                    settings_sel_item = "buttons"
+                elseif settings_sel_item == "buttons" then
+                    settings_sel_item = "reset_button"
+                elseif settings_sel_item == "reset_button" then
+                    settings_sel_item = "confirmations"
                 end
             --elseif (button == BUTTON_SINGLE_CIRCLE) then
             elseif (button == BUTTON_SINGLE_CROSS) then
@@ -301,6 +321,12 @@ while true do
                 elseif settings_sel_item == "buttons" then
                     SETTINGS.buttons.value = "xo"
                     play_sound("click")
+                elseif settings_sel_item == "reset_button" then
+                    SETTINGS.reset_button.value = "start"
+                    play_sound("click")
+                elseif settings_sel_item == "confirmations" then
+                    SETTINGS.confirmations.value = "off"
+                    play_sound("click")
                 end
             elseif (button == BUTTON_SINGLE_LEFT or button == BUTTON_HELD_LEFT) then
                 if settings_sel_item == "sound" then
@@ -308,6 +334,12 @@ while true do
                     play_sound("click")
                 elseif settings_sel_item == "buttons" then
                     SETTINGS.buttons.value = "ox"
+                    play_sound("click")
+                elseif settings_sel_item == "reset_button" then
+                    SETTINGS.reset_button.value = "triangle"
+                    play_sound("click")
+                elseif settings_sel_item == "confirmations" then
+                    SETTINGS.confirmations.value = "on"
                     play_sound("click")
                 end
             end
