@@ -6,11 +6,9 @@ VS.space_size      = 15
 VS.nx              = 0
 VS.cell_font       = 16
 VS.header_font     = 50
-VS.sel_buffer_ext  = 6
-VS.sel_buffer_int  = 3
-VS.header_width    = 400
-VS.header_y_buffer = 150
-VS.header_y_step   = 200
+VS.header_width    = 520
+VS.header_y_buffer = 70
+VS.header_y_step   = 110
 
 VS.done_x         = VS.screen_margin
 VS.done_y         = 544 - 60 - VS.screen_margin
@@ -20,10 +18,11 @@ VS.done_font      = 36
 VS.done_icon_size = 32
 
 VS.button_width     = 120
+VS.button_min_height = 48
 VS.button_icon_size = 20
 VS.button_font      = 24
-VS.label_font       = 36
-VS.buttonA_x        = VS.header_width + 100
+VS.label_font       = 32
+VS.buttonA_x        = VS.header_width + 80
 VS.buttonB_x        = VS.buttonA_x + VS.button_width + 50
 
 settings_items = {}
@@ -45,7 +44,7 @@ settings_items["sound"] = {
     },
 }
 settings_items["buttons"] = {
-    label = "buttons",
+    label = "xo_buttons",
     y_center = VS.header_y_buffer + VS.header_y_step,
 
     A = {
@@ -65,6 +64,41 @@ settings_items["buttons"] = {
         icon1 = "cross",
         msg2 = "no",
         icon2 = "circle",
+    },
+}
+settings_items["reset_button"] = {
+    label = "reset_button",
+    y_center = VS.header_y_buffer + 2*VS.header_y_step,
+
+    A = {
+        x = VS.buttonA_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "",
+        icon1 = "triangle",
+    },
+
+    B = {
+        x = VS.buttonB_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "",
+        icon1 = "start",
+        icon1_size = 44
+    },
+}
+settings_items["confirmations"] = {
+    label = "confirmations",
+    y_center = VS.header_y_buffer + 3*VS.header_y_step,
+
+    A = {
+        x = VS.buttonA_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "on",
+    },
+
+    B = {
+        x = VS.buttonB_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "off",
     },
 }
 
@@ -123,11 +157,11 @@ local function draw_button(setting_name, AB, selected)
     end
 
 
+    local button_interior_h = text_h
     if text2 then
-        button.height = 3*buffer + text_h*2
-    else
-        button.height = 2*buffer + text_h
+        button_interior_h = button_interior_h + buffer + text_h
     end
+    button.height = math.max(2*buffer + button_interior_h, VS.button_min_height)
 
     button.y = math.ceil(item.y_center - button.height/2)
 
@@ -141,9 +175,12 @@ local function draw_button(setting_name, AB, selected)
     -- draw text
     local icon_x
     local text_x
+
+    local icon1_size = button.icon1_size or VS.button_icon_size
+
     if button.icon1 then
-        icon_x = math.floor(button.x + (button.width - text_w - VS.button_icon_size - buffer)/2)
-        text_x = icon_x + VS.button_icon_size + buffer
+        icon_x = math.floor(button.x + (button.width - text_w - icon1_size - buffer)/2)
+        text_x = icon_x + icon1_size + buffer
     else
         text_x = math.floor(button.x + (button.width - text_w)/2)
     end
@@ -151,16 +188,22 @@ local function draw_button(setting_name, AB, selected)
 
     draw_text(text_x, text1_y, font_size, text1, fg_color, message_font_name)
     if button.icon1 then
-        local icon1_y = text1_y + (text_h - VS.button_icon_size)/2
-        draw_general_icon(icon_x, icon1_y, icon_x + VS.button_icon_size, icon1_y + VS.button_icon_size, misc_images[button.icon1], fg_color)
+        local icon1_y = math.ceil(text1_y + (text_h - icon1_size)/2)
+        if not text1 or #text1 == 0 then
+            icon1_y = math.ceil(button.y + (button.height - icon1_size)/2)
+            icon1_x = math.floor(button.x + (button.width - icon1_size)/2)
+        end
+
+        draw_general_icon(icon_x, icon1_y, icon_x + icon1_size, icon1_y + icon1_size, misc_images[button.icon1], fg_color)
     end
 
     if text2 then
+        local icon2_size = button.icon2_size or VS.button_icon_size
         local text2_y = text1_y + buffer + text_h
         draw_text(text_x, text2_y, font_size, text2, fg_color, message_font_name)
         if button.icon2 then
-            local icon2_y = text2_y + (text_h - VS.button_icon_size)/2
-            draw_general_icon(icon_x, icon2_y, icon_x + VS.button_icon_size, icon2_y + VS.button_icon_size, misc_images[button.icon2], fg_color)
+            local icon2_y = text2_y + (text_h - icon2_size)/2
+            draw_general_icon(icon_x, icon2_y, icon_x + icon2_size, icon2_y + icon2_size, misc_images[button.icon2], fg_color)
         end
     end
 end
@@ -183,6 +226,8 @@ local function draw_settings_item(setting_name)
     local A_sel = 
     (setting_name == "sound" and SETTINGS.sound.value == "on")
     or (setting_name == "buttons" and SETTINGS.buttons.value == "ox")
+    or (setting_name == "reset_button" and SETTINGS.reset_button.value == "triangle")
+    or (setting_name == "confirmations" and SETTINGS.confirmations.value == "on")
 
     draw_button(setting_name, "A", A_sel)
     draw_button(setting_name, "B", not A_sel)
@@ -191,7 +236,7 @@ local function draw_settings_item(setting_name)
     item.x1 = VS.screen_margin
     item.x2 = screen_width() - VS.screen_margin
 
-    local h = math.max(VS.header_y_step/2, math.max(item.A.height, item.B.height) + 2*VS.screen_margin)
+    local h = math.max(VS.header_y_step/2, math.max(item.A.height, item.B.height) + 2*0.5*VS.screen_margin)
 
     item.y1 = math.floor(item.y_center - h/2)
     item.y2 = math.ceil(item.y_center + h/2)
@@ -228,6 +273,8 @@ function draw_settings()
     -- draw settings items
     draw_settings_item("sound")
     draw_settings_item("buttons")
+    draw_settings_item("reset_button")
+    draw_settings_item("confirmations")
 
     -- draw done button
     draw_done_button()
@@ -247,22 +294,17 @@ end
 function handle_tap_settings(x, y)
 
     -- select setting (NOT button, so we don't return)
-    if xy_in_xyxy(x, y,
-        settings_items["sound"].x1,
-        settings_items["sound"].y1,
-        settings_items["sound"].x2,
-        settings_items["sound"].y2) then
+    settings_sel_item = nil
+    for setting_name, setting_item in pairs(settings_items) do
+        if xy_in_xyxy(x, y,
+            setting_item.x1,
+            setting_item.y1,
+            setting_item.x2,
+            setting_item.y2) then
 
-        settings_sel_item = "sound"
-    elseif xy_in_xyxy(x, y,
-        settings_items["buttons"].x1,
-        settings_items["buttons"].y1,
-        settings_items["buttons"].x2,
-        settings_items["buttons"].y2) then
-
-        settings_sel_item = "buttons"
-    else
-        settings_sel_item = nil
+            settings_sel_item = setting_name
+            break
+        end
     end
 
     -- done button
@@ -320,6 +362,50 @@ function handle_tap_settings(x, y)
         settings_items["buttons"].B.height) then
 
         SETTINGS.buttons.value = "xo"
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["reset_button"].A.x,
+        settings_items["reset_button"].A.y,
+        settings_items["reset_button"].A.width,
+        settings_items["reset_button"].A.height) then
+
+        SETTINGS.reset_button.value = "triangle"
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["reset_button"].B.x,
+        settings_items["reset_button"].B.y,
+        settings_items["reset_button"].B.width,
+        settings_items["reset_button"].B.height) then
+
+        SETTINGS.reset_button.value = "start"
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["confirmations"].A.x,
+        settings_items["confirmations"].A.y,
+        settings_items["confirmations"].A.width,
+        settings_items["confirmations"].A.height) then
+
+        SETTINGS.confirmations.value = "on"
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["confirmations"].B.x,
+        settings_items["confirmations"].B.y,
+        settings_items["confirmations"].B.width,
+        settings_items["confirmations"].B.height) then
+
+        SETTINGS.confirmations.value = "off"
         play_sound("click")
 
         return

@@ -84,6 +84,8 @@ function load_misc_images()
     misc_images["check"] = Graphics.loadImage(image_dir .. "/check.png")
     misc_images["circle"] = Graphics.loadImage(image_dir .. "/btn_circle.png")
     misc_images["cross"] = Graphics.loadImage(image_dir .. "/btn_cross.png")
+    misc_images["triangle"] = Graphics.loadImage(image_dir .. "/btn_triangle.png")
+    misc_images["start"] = Graphics.loadImage(image_dir .. "/btn_start.png")
 
     return misc_images
 end

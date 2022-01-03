@@ -15,7 +15,9 @@ strings_i18n["en"] = {
 
     -- settings
     ["sound"]   = "sound",
-    ["buttons"] = "buttons",
+    ["xo_buttons"] = "X/O buttons",
+    ["reset_button"] = "reset button",
+    ["confirmations"] = "confirmation dialogs",
     ["done"]    = "done",
     ["on"]      = "on",
     ["off"]     = "off",
@@ -48,7 +50,9 @@ strings_i18n["ja"] = {
 
     -- settings
     ["sound"]   = "効果音",
-    ["buttons"] = "ボタン",
+    ["xo_buttons"] = "ＯＸボタン",
+    ["reset_button"] = "リセットボタン",
+    ["confirmations"] = "確認メッセージ",
     ["done"]    = "完了",
     ["on"]      = "オン",
     ["off"]     = "オフ",
@@ -59,7 +63,7 @@ strings_i18n["ja"] = {
     ["conf_levelmenu"] = "レベルメニューへ戻りますか？",
     ["conf_nextlevel"] = "次のレベルへ進みますか？",
     ["conf_prevlevel"] = "前のレベルへ戻りますか？",
-    ["conf_reset"]     = "レベルをやり直しますか？",
+    ["conf_reset"]     = "レベルをリセットしますか？",
     ["progresslost"]   = "このレベルの状態は消えます。",
 
     ["no"] = "いいえ",
@@ -81,7 +85,9 @@ strings_i18n["zh_t"] = {
 
     -- settings
     ["sound"]   = "音效",
-    ["buttons"] = "按鈕",
+    ["xo_buttons"] = "ＯＸ按鈕",
+    ["reset_button"] = "復位按鈕",
+    ["confirmations"] = "確認提示",
     ["done"]    = "完成",
     ["on"]      = "開啟",
     ["off"]     = "關閉",
@@ -114,7 +120,9 @@ strings_i18n["zh_s"] = {
 
     -- settings
     ["sound"]   = "音效",
-    ["buttons"] = "按钮",
+    ["xo_buttons"] = "ＯＸ按钮",
+    ["reset_button"] = "复位按钮",
+    ["confirmations"] = "确认提示",
     ["done"]    = "完成",
     ["on"]      = "开启",
     ["off"]     = "关闭",
