@@ -31,7 +31,7 @@ cp -r ../fonts build/assets/
 
 shopt -s extglob
 mkdir -p build/assets/lib
-cp ../lib/!(*_desktop.lua) build/assets/lib/
+cp -r ../lib/!(*_desktop.lua|locale) build/assets/lib/
 
 if $make_pkg
 then

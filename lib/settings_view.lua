@@ -264,6 +264,7 @@ function set_settings_size(width, height)
     height = height - 2*VS.screen_margin
 
     -- TODO: adjust layout for different screen sizes
+    VS.done_y         = screen_height() - 60 - VS.screen_margin
 
 end
 

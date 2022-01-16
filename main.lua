@@ -8,6 +8,7 @@ end
 -- desktop-specific libraries
 loadlib("io_desktop")
 loadlib("graphics_desktop")
+locale = require("lib/locale")
 
 -- other libraries
 loadlib("util")
@@ -29,8 +30,32 @@ loadlib("level_menu")
 loadlib("settings_view")
 
 
--- TODO get language code
-lang_code = "en"
+-- set language
+
+locale_get_success, lang_code = pcall(locale.get)
+if (not locale_get_success) then
+    lang_code = "en"
+end
+
+local valid_lang_codes = {"en", "zh_t", "zh_s", "ja"}
+if (lang_code == "zh_TW") or (lang_code == "zh_HK") or (lang_code == "zh_HK") or (lang_code == "zh_CHT") then
+    lang_code = "zh_t"
+elseif (string.sub(lang_code, 1, 2) == "zh") then
+    lang_code = "zh_s"
+else
+    lang_code = string.sub(lang_code, 1, 2)
+end
+
+local lang_code_is_valid = false
+for _, v_lang_code in pairs(valid_lang_codes) do
+    if lang_code == v_lang_code then
+        lang_code_is_valid = true
+        break
+    end
+end
+if (not lang_code_is_valid) then
+    lang_code = "en"
+end
 
 default_font_name = "good-times-rg.ttf"
 number_font_name = "good-times-rg.ttf"

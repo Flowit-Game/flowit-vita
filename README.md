@@ -26,6 +26,6 @@ The app can run in English, Chinese (中文), or Japanese (日本語). Localizat
 ## License
 Licenses for the bundled fonts can be found in the `fonts/` directory.
 
-Jonathan Poelen's [xmlparser](https://github.com/jonathanpoelen/xmlparser) library for Lua is included under its original MIT license.
+Jonathan Poelen's [xmlparser](https://github.com/jonathanpoelen/xmlparser) library and Egor Malyutin's [hlp](https://github.com/egormalyutin/hlp) library are included under their original MIT licenses.
 
 Other files and code are released under GPLv3.
