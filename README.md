@@ -1,5 +1,5 @@
-# Flowit-Vita
-A PS Vita port of the puzzle game [Flowit](https://github.com/Flowit-Game/Flowit/) by ByteHamster. The original is an Android app written in Java; this is a reimplementation for Vita written in Lua using [Lua Player Plus Vita](https://github.com/Rinnegatamante/lpp-vita) by Rinnegatamante.
+# Flowit-Vita / Flowit-Desktop
+A port of the puzzle game [Flowit](https://github.com/Flowit-Game/Flowit/) by ByteHamster. The original is an Android app written in Java; this is a reimplementation written in Lua using [Lua Player Plus Vita](https://github.com/Rinnegatamante/lpp-vita) by Rinnegatamante. The port runs on Desktop and on the PlayStation Vita.
 
 ## Screenshots
 <img src="screenshots/screenshot01.png" width="350"/>
@@ -7,12 +7,12 @@ A PS Vita port of the puzzle game [Flowit](https://github.com/Flowit-Game/Flowit
 <img src="screenshots/screenshot03.png" width="350"/>
 <img src="screenshots/screenshot04.png" width="350"/>
 
-## Compatibility
+## Running on Desktop
+To run on Desktop, install the [LÖVE](https://love2d.org) engine and execute `love .` from the top directory.
+
+## Building for PS Vita
 Gameplay depends on the touchscreen, so the experience is better on the handheld PS Vita than on PS TV.
 
-To make debugging more convenient, the game was written simultaneously for Vita and for desktop, the latter using the [LÖVE](https://love2d.org) engine. To run on desktop, install LÖVE and execute `love .` from the top directory.
-
-## Building
 On Linux, enter the `flowit-vita` directory and execute `./build.sh`.
 
 The `eboot.bin` file is compiled from [Lua Player Plus](https://github.com/Rinnegatamante/lpp-vita). To build that for yourself as well, note that you need a version of Lua Player Plus recent enough to include text width and height detection (added in [this commit](https://github.com/Rinnegatamante/lpp-vita/commit/8124c469d6b8c43d1567b253a3ba13c6e0dcaa67)).
