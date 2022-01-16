@@ -18,6 +18,8 @@ VG.font_big = 36
 VG.font_small = 24
 
 control_area = {}
+
+-- initialize control areas; these are updated later in set_game_size
 control_area["prev"] = {
     x = VG.screen_margin,
     y = VG.screen_margin,
@@ -25,20 +27,20 @@ control_area["prev"] = {
     h = 60,
 }
 control_area["next"] = {
-    x = 960 - 60 - VG.screen_margin,
+    x = screen_width() - 60 - VG.screen_margin,
     y = VG.screen_margin,
     w = 60,
     h = 60,
 }
 control_area["reset"] = {
-    x = 960 - 80 - VG.screen_margin,
-    y = 544 - 80 - VG.screen_margin,
+    x = screen_width() - 80 - VG.screen_margin,
+    y = screen_height() - 80 - VG.screen_margin,
     w = 80,
     h = 80,
 }
 control_area["back"] = {
     x = VG.screen_margin,
-    y = 544 - 60 - VG.screen_margin,
+    y = screen_height() - 60 - VG.screen_margin,
     w = 100,
     h = 60,
     lr_align = "left",
@@ -109,6 +111,33 @@ function set_game_size(tridata, width, height)
     VG.outline_size = math.ceil(VG.cell_size/15)
     VG.inside_gap_size = math.ceil(VG.cell_size/40)
 
+    control_area["prev"] = {
+        x = VG.screen_margin,
+        y = VG.screen_margin,
+        w = 60,
+        h = 60,
+    }
+    control_area["next"] = {
+        x = screen_width() - 60 - VG.screen_margin,
+        y = VG.screen_margin,
+        w = 60,
+        h = 60,
+    }
+    control_area["reset"] = {
+        x = screen_width() - 80 - VG.screen_margin,
+        y = screen_height() - 80 - VG.screen_margin,
+        w = 80,
+        h = 80,
+    }
+    control_area["back"] = {
+        x = VG.screen_margin,
+        y = screen_height() - 60 - VG.screen_margin,
+        w = 100,
+        h = 60,
+        lr_align = "left",
+        tb_align = "bottom",
+        font_size = VG.font_big,
+    }
 end
 
 function xy_to_control(x, y)
