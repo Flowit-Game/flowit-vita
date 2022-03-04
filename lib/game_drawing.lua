@@ -15,6 +15,7 @@ VG.outline_size    = 0
 VG.inside_gap_size = 0
 
 VG.font_big = 36
+VG.font_medium = 30
 VG.font_small = 24
 
 control_area = {}
@@ -312,7 +313,14 @@ function draw_info()
     local x_offset = VG.screen_margin
     local y_offset = 140
 
-    draw_text(x_offset, 0 + y_offset, VG.font_big, get_i18n(game_status.pack), "d", default_font_name)
+    local pack_str = get_i18n(game_status.pack)
+    local pack_font = VG.font_big
+
+    if ((lang_code ~= "ja") and (#pack_str > 6)) or ((lang_code == "ja") and (#pack_str > 3*5)) then
+        pack_font = VG.font_medium
+    end
+
+    draw_text(x_offset, 0 + y_offset, pack_font, pack_str, "d", default_font_name)
 
     local level_prefix = get_i18n("level_prefix") or ""
     local level_postfix = get_i18n("level_postfix") or ""
