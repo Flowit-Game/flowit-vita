@@ -5,6 +5,7 @@ strings_i18n["en"] = {
     ["level_prefix"] = "level",
     ["level_postfix"] = "",
     ["best:"]  = "best:",
+    ["by:"]  = "by ",
     ["back"]   = "back",
 
     ["easy"]   = "easy",
@@ -41,6 +42,7 @@ strings_i18n["ja"] = {
     ["level_prefix"] = "レベル",
     ["level_postfix"] = "",
     ["best:"]  = "ベスト：",
+    ["by:"]  = "作成者：",
     ["back"]   = "戻る",
 
     ["easy"]   = "イージー",
@@ -77,6 +79,7 @@ strings_i18n["zh_t"] = {
     ["level_prefix"] = "",
     ["level_postfix"] = "級",
     ["best:"]  = "最佳：",
+    ["by:"]  = "作者：",
     ["back"]   = "回去",
 
     ["easy"]   = "簡單",
@@ -113,6 +116,7 @@ strings_i18n["zh_s"] = {
     ["level_prefix"] = "",
     ["level_postfix"] = "级",
     ["best:"]  = "最佳：",
+    ["by:"]  = "作者：",
     ["back"]   = "回去",
 
     ["easy"]   = "简单",

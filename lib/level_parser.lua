@@ -54,6 +54,7 @@ function get_level_data_from_pack(level_pack)
     local color_data_raw = this_level_data_raw["attrs"]["color"]
     local modifier_data_raw = this_level_data_raw["attrs"]["modifier"]
     local level_id = this_level_data_raw["attrs"]["number"]
+    local level_author = this_level_data_raw["attrs"]["author"]
 
     local this_data = {}
     local cdata = data_string_to_table(color_data_raw)
@@ -80,6 +81,7 @@ function get_level_data_from_pack(level_pack)
     this_data["color"] = cdata
     this_data["modifier"] = mdata
     this_data["id"] = level_id
+    this_data["author"] = level_author
 
     data[j] = this_data
     end
