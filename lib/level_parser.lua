@@ -153,6 +153,8 @@ function get_prev_level(all_levels, pack, level)
         return "easy", #all_levels["easy"]
     elseif pack == "hard" then
         return "medium", #all_levels["medium"]
+    elseif pack == "community" then
+        return nil, nil
     end
 end
 function get_next_level(all_levels, pack, level)
@@ -163,6 +165,8 @@ function get_next_level(all_levels, pack, level)
     elseif pack == "medium" then
         return "hard", 1
     elseif pack == "hard" then
+        return nil, nil
+    elseif pack == "community" then
         return nil, nil
     end
 end

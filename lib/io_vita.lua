@@ -10,6 +10,7 @@ level_pack_files = {
     ["easy"]   = "app0:/assets/levels/levelsEasy.xml",
     ["medium"] = "app0:/assets/levels/levelsMedium.xml",
     ["hard"]   = "app0:/assets/levels/levelsHard.xml",
+    ["community"]   = "app0:/assets/levels/levelsCommunity.xml",
 }
 
 

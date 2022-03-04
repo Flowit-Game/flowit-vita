@@ -68,8 +68,12 @@ function is_high_score(pack, level, score)
 end
 
 -- 5 levels ahead are unlocked
+-- But all community levels are unlocked
 UNLOCK_NUM = 5
 function is_level_locked(pack, level)
+    if (pack == "community") then
+        return false
+    end
     if level <= UNLOCK_NUM then
         return false
     else

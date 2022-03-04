@@ -10,6 +10,7 @@ strings_i18n["en"] = {
     ["easy"]   = "easy",
     ["medium"] = "medium",
     ["hard"]   = "hard",
+    ["community"] = "community",
 
     ["settings"] = "settings",
 
@@ -45,6 +46,7 @@ strings_i18n["ja"] = {
     ["easy"]   = "イージー",
     ["medium"] = "ノーマル",
     ["hard"]   = "ハード",
+    ["community"] = "コミュニティ",
 
     ["settings"] = "設定",
 
@@ -80,6 +82,7 @@ strings_i18n["zh_t"] = {
     ["easy"]   = "簡單",
     ["medium"] = "中等",
     ["hard"]   = "困難",
+    ["community"] = "社區貢獻",
 
     ["settings"] = "設定",
 
@@ -115,6 +118,7 @@ strings_i18n["zh_s"] = {
     ["easy"]   = "简单",
     ["medium"] = "中等",
     ["hard"]   = "困难",
+    ["community"] = "社区贡献",
 
     ["settings"] = "设定",
 

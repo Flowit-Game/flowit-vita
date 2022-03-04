@@ -295,10 +295,10 @@ function draw_control_text(control_str)
 end
 
 function draw_controls()
-    if not (game_status.pack == "easy" and game_status.level == 1) then
+    if (not (game_status.pack == "easy" and game_status.level == 1)) and (not (game_status.pack == "community" and game_status.level == 1)) then
         draw_control_icon("prev")
     end
-    if not (game_status.pack == "hard" and game_status.level == #all_levels["hard"]) then
+    if (not (game_status.pack == "hard" and game_status.level == #all_levels["hard"])) and (not (game_status.pack == "community" and game_status.level == #all_levels["community"])) then
         draw_control_icon("next")
     end
     draw_control_icon("reset")

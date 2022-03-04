@@ -158,6 +158,8 @@ function next_menu_pack()
         switch_menu_pack("medium")
     elseif game_status.pack == "medium" then
         switch_menu_pack("hard")
+    elseif game_status.pack == "hard" then
+        switch_menu_pack("community")
     end
 end
 function prev_menu_pack()
@@ -165,6 +167,8 @@ function prev_menu_pack()
         switch_menu_pack("easy")
     elseif game_status.pack == "hard" then
         switch_menu_pack("medium")
+    elseif game_status.pack == "community" then
+        switch_menu_pack("hard")
     end
 end
 
