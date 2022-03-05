@@ -9,6 +9,7 @@ VLM.space_size      = 15
 VLM.nx              = 0
 VLM.cell_font       = 16
 VLM.header_font     = 50
+VLM.header_font_small = 32
 VLM.sel_buffer_ext  = 6
 VLM.sel_buffer_int  = 3
 VLM.header_width    = 300
@@ -122,10 +123,17 @@ function draw_level_menu()
             text_color = "b"
         end
 
+        local this_header_font = VLM.header_font
+        if pack == "community" then
+            if (lang_code ~= "zh_t") and (lang_code ~= "zh_s") then
+                this_header_font = VLM.header_font_small
+            end
+        end
+
 
         --local text_w, text_h = text_dimensions(pack_str, VLM.header_font, default_font_name) -- debug
         --pack_str = tostring(text_w) .. "," .. tostring(text_h) -- debug
-        draw_text(x_offset_text, y_offset_text, VLM.header_font, pack_str, text_color, default_font_name)
+        draw_text(x_offset_text, y_offset_text, this_header_font, pack_str, text_color, default_font_name)
     end
 
     -- draw squares
@@ -158,6 +166,8 @@ function next_menu_pack()
         switch_menu_pack("medium")
     elseif game_status.pack == "medium" then
         switch_menu_pack("hard")
+    elseif game_status.pack == "hard" then
+        switch_menu_pack("community")
     end
 end
 function prev_menu_pack()
@@ -165,6 +175,8 @@ function prev_menu_pack()
         switch_menu_pack("easy")
     elseif game_status.pack == "hard" then
         switch_menu_pack("medium")
+    elseif game_status.pack == "community" then
+        switch_menu_pack("hard")
     end
 end
 

@@ -15,6 +15,7 @@ VG.outline_size    = 0
 VG.inside_gap_size = 0
 
 VG.font_big = 36
+VG.font_medium = 30
 VG.font_small = 24
 
 control_area = {}
@@ -295,10 +296,10 @@ function draw_control_text(control_str)
 end
 
 function draw_controls()
-    if not (game_status.pack == "easy" and game_status.level == 1) then
+    if (not (game_status.pack == "easy" and game_status.level == 1)) and (not (game_status.pack == "community" and game_status.level == 1)) then
         draw_control_icon("prev")
     end
-    if not (game_status.pack == "hard" and game_status.level == #all_levels["hard"]) then
+    if (not (game_status.pack == "hard" and game_status.level == #all_levels["hard"])) and (not (game_status.pack == "community" and game_status.level == #all_levels["community"])) then
         draw_control_icon("next")
     end
     draw_control_icon("reset")
@@ -312,7 +313,14 @@ function draw_info()
     local x_offset = VG.screen_margin
     local y_offset = 140
 
-    draw_text(x_offset, 0 + y_offset, VG.font_big, get_i18n(game_status.pack), "d", default_font_name)
+    local pack_str = get_i18n(game_status.pack)
+    local pack_font = VG.font_big
+
+    if ((lang_code ~= "ja") and (#pack_str > 6)) or ((lang_code == "ja") and (#pack_str > 3*5)) then
+        pack_font = VG.font_medium
+    end
+
+    draw_text(x_offset, 0 + y_offset, pack_font, pack_str, "d", default_font_name)
 
     local level_prefix = get_i18n("level_prefix") or ""
     local level_postfix = get_i18n("level_postfix") or ""
@@ -328,18 +336,35 @@ function draw_info()
     local best_w, _ = text_dimensions(get_i18n("best:"), VG.font_small, default_font_name)
     moves_w = math.max(moves_w, best_w) + math.ceil(VG.font_small/2)
 
-    draw_text(x_offset, 115 + y_offset, VG.font_small, get_i18n("moves:"), "d", default_font_name)
-    draw_text(x_offset + moves_w, 115 + y_offset, VG.font_small, tostring(game_status.steps), "d", number_font_name)
+    local author = nil
+    local author_y_offset = 0
+    local level_data = all_levels[game_status.pack][game_status.level]
+    if (level_data ~= nil) then
+        author = level_data["author"]
+        if (author == "") then
+            author = nil
+        end
+        if (author ~= nil) then
+            author_y_offset = 30
+        end
+    end
+
+    if (author ~= nil) then
+        draw_text(x_offset, 95 + y_offset, VG.font_small, get_i18n("by:") .. author, "d", default_font_name)
+    end
+
+    draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "d", default_font_name)
+    draw_text(x_offset + moves_w, 115 + author_y_offset + y_offset, VG.font_small, tostring(game_status.steps), "d", number_font_name)
 
     local hs = get_high_score(game_status.pack, game_status.level)
     local hs_cache = get_cached_high_score(game_status.pack, game_status.level)
     if hs ~= nil then
 
-        draw_text(x_offset, 145 + y_offset, VG.font_small, get_i18n("best:"), "d", default_font_name)
+        draw_text(x_offset, 145 + author_y_offset + y_offset, VG.font_small, get_i18n("best:"), "d", default_font_name)
         if (is_game_over) and (hs_cache) and (hs < hs_cache) then
-            draw_text(x_offset + moves_w, 145 + y_offset, VG.font_small, tostring(hs_cache), "d", number_font_name)
+            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs_cache), "d", number_font_name)
         else
-            draw_text(x_offset + moves_w, 145 + y_offset, VG.font_small, tostring(hs), "d", number_font_name)
+            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs), "d", number_font_name)
         end
 
     end

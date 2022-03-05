@@ -8,6 +8,7 @@ level_pack_files = {
     ["easy"]   = "levels/levelsEasy.xml",
     ["medium"] = "levels/levelsMedium.xml",
     ["hard"]   = "levels/levelsHard.xml",
+    ["community"]   = "levels/levelsCommunity.xml",
 }
 
 
