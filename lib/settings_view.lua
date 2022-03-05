@@ -12,10 +12,14 @@ VS.header_y_step   = 110
 
 VS.done_x         = VS.screen_margin
 VS.done_y         = 544 - 60 - VS.screen_margin
-VS.done_width     = 100
+VS.done_width     = 100 -- updated in code
 VS.done_height    = 60
 VS.done_font      = 36
 VS.done_icon_size = 32
+
+VS.credits_x_buffer = 40
+VS.credits_font     = 18
+VS.credits_y        = 544 - 3*(VS.credits_font+3) - VS.screen_margin
 
 VS.button_width     = 120
 VS.button_min_height = 48
@@ -105,7 +109,7 @@ settings_items["confirmations"] = {
 settings_sel_item = nil
 
 -- local functions
-local function draw_done_button()
+local function draw_done_button_and_credits()
     local text = get_i18n("back")
     local font_size = VS.done_font
     local text_w, text_h = text_dimensions(text, font_size, default_font_name)
@@ -128,6 +132,10 @@ local function draw_done_button()
     draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "d")
     draw_text(text_x, text_y, font_size, text, "X", default_font_name)
     draw_general_icon(icon_x, icon_y, icon_x + VS.done_icon_size, icon_y + VS.done_icon_size, done_img, "X")
+
+    -- draw credits
+    local credits_x = VS.done_x + VS.done_width + VS.credits_x_buffer
+    draw_text(credits_x, VS.credits_y, VS.credits_font, get_i18n("credits"), "d", message_font_name)
 end
 
 local function draw_button(setting_name, AB, selected)
@@ -277,8 +285,8 @@ function draw_settings()
     draw_settings_item("reset_button")
     draw_settings_item("confirmations")
 
-    -- draw done button
-    draw_done_button()
+    -- draw done button & credits
+    draw_done_button_and_credits()
 
     end_draw_phase()
 end

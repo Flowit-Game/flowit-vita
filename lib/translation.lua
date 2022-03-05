@@ -35,6 +35,8 @@ strings_i18n["en"] = {
 
     ["no"] = "No",
     ["yes"] = "Yes",
+
+    ["credits"] = "Flowit game by ByteHamster\nPorted by ywnico\ngithub.com/Flowit-Game",
 }
 
 strings_i18n["ja"] = {
@@ -72,6 +74,8 @@ strings_i18n["ja"] = {
 
     ["no"] = "いいえ",
     ["yes"] = "はい",
+
+    ["credits"] = "Flowitゲームクリエイター：ByteHamster\nゲーム移植：ywnico\ngithub.com/Flowit-Game",
 }
 
 strings_i18n["zh_t"] = {
@@ -109,6 +113,8 @@ strings_i18n["zh_t"] = {
 
     ["no"] = "否",
     ["yes"] = "是",
+
+    ["credits"] = "Flowit遊戲作者：ByteHamster\n軟體移植：ywnico\ngithub.com/Flowit-Game",
 }
 
 strings_i18n["zh_s"] = {
@@ -146,6 +152,8 @@ strings_i18n["zh_s"] = {
 
     ["no"] = "否",
     ["yes"] = "是",
+
+    ["credits"] = "Flowit游戏作者：ByteHamster\n软体移植：ywnico\ngithub.com/Flowit-Game",
 }
 
 function get_i18n(s)
