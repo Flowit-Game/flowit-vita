@@ -19,14 +19,14 @@ To build for Linux, clone the source and execute `./build_desktop`; this will pr
 The app can also be run directly from the source without any packaging. Just clone the repository and execute `love .` from the top directory.
 
 ### Windows
-To run from the release, download the `flowit-win.zip` release file and run `Flowit.exe`.
+To run from the release, download and unzip the `flowit-win` release file, then run `Flowit.exe`.
 
 To build the Windows executable on Linux, clone the source and execute `./build_desktop --win` (note that this will not set the Flowit icon for the executable; that must be done from Windows or wine).
 
 To build the Windows executable on Windows, follow the [instructions](https://love2d.org/wiki/Game_Distribution) on the LÖVE wiki (building Flowit on Windows has not been tested).
 
 ### Mac
-To run from the release, download the `Flowit.app.zip` release file.
+To run from the release, download and unzip the `Flowit-mac` release file, then run `Flowit.app`.
 
 To build the Mac app on Linux, clone the source and execute `./build_desktop --mac`. This build process should work on Mac also, but has not been tested.
 
