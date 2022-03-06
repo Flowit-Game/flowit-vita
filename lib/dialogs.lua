@@ -104,6 +104,10 @@ local function draw_confirmation_dialog()
     end
 
     -- set up buttons
+    if platform == PLATFORMS.DESKTOP then
+        VD.button_icon_size = 0
+        VD.button_icon_gap = 0
+    end
 
     local no_w, no_h = text_dimensions(get_i18n("no"), VD.font_button, message_font_name)
     local yes_w, yes_h = text_dimensions(get_i18n("yes"), VD.font_button, message_font_name)
@@ -131,11 +135,15 @@ local function draw_confirmation_dialog()
 
     draw_rect(VD.button_no_x, VD.button_y, VD.button_no_x + VD.button_width, VD.button_y + VD.button_height, "X")
     draw_text(no_x, no_y, VD.font_button, get_i18n("no"), "d", message_font_name)
-    draw_general_icon(no_icon_x, no_icon_y, no_icon_x + VD.button_icon_size, no_icon_y + VD.button_icon_size, no_img, "d")
+    if platform ~= PLATFORMS.DESKTOP then
+        draw_general_icon(no_icon_x, no_icon_y, no_icon_x + VD.button_icon_size, no_icon_y + VD.button_icon_size, no_img, "d")
+    end
 
     draw_rect(VD.button_yes_x, VD.button_y, VD.button_yes_x + VD.button_width, VD.button_y + VD.button_height, "X")
     draw_text(yes_x, yes_y, VD.font_button, get_i18n("yes"), "d", message_font_name)
-    draw_general_icon(yes_icon_x, yes_icon_y, yes_icon_x + VD.button_icon_size, yes_icon_y + VD.button_icon_size, yes_img, "d")
+    if platform ~= PLATFORMS.DESKTOP then
+        draw_general_icon(yes_icon_x, yes_icon_y, yes_icon_x + VD.button_icon_size, yes_icon_y + VD.button_icon_size, yes_img, "d")
+    end
 end
 
 function xy_to_dialog_control(x, y)

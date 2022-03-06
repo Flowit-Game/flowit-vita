@@ -33,6 +33,7 @@ settings_items = {}
 -- A is option 1, B is option 2
 settings_items["sound"] = {
     label = "sound",
+    show_on_desktop = true,
     y_center = VS.header_y_buffer,
 
     A = {
@@ -49,13 +50,13 @@ settings_items["sound"] = {
 }
 settings_items["buttons"] = {
     label = "xo_buttons",
-    y_center = VS.header_y_buffer + VS.header_y_step,
+    show_on_desktop = false,
+    y_center = VS.header_y_buffer + 2*VS.header_y_step,
 
     A = {
         x = VS.buttonA_x, y = 0,
         width = VS.button_width, height = 0,
         msg1 = "yes",
-        icon1 = "circle",
         icon1 = "circle",
         msg2 = "no",
         icon2 = "cross",
@@ -72,7 +73,8 @@ settings_items["buttons"] = {
 }
 settings_items["reset_button"] = {
     label = "reset_button",
-    y_center = VS.header_y_buffer + 2*VS.header_y_step,
+    show_on_desktop = false,
+    y_center = VS.header_y_buffer + 3*VS.header_y_step,
 
     A = {
         x = VS.buttonA_x, y = 0,
@@ -91,7 +93,8 @@ settings_items["reset_button"] = {
 }
 settings_items["confirmations"] = {
     label = "confirmations",
-    y_center = VS.header_y_buffer + 3*VS.header_y_step,
+    show_on_desktop = true,
+    y_center = VS.header_y_buffer + 1*VS.header_y_step,
 
     A = {
         x = VS.buttonA_x, y = 0,
@@ -114,6 +117,11 @@ local function draw_done_button_and_credits()
     local font_size = VS.done_font
     local text_w, text_h = text_dimensions(text, font_size, default_font_name)
     local done_buffer = 10
+
+    if platform == PLATFORMS.DESKTOP then
+        VS.done_icon_size = 0
+    end
+
     VS.done_width = text_w + 3*done_buffer + VS.done_icon_size
     VS.done_height = math.max(VS.done_height, text_h + 6)
 
@@ -131,7 +139,10 @@ local function draw_done_button_and_credits()
 
     draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "d")
     draw_text(text_x, text_y, font_size, text, "X", default_font_name)
-    draw_general_icon(icon_x, icon_y, icon_x + VS.done_icon_size, icon_y + VS.done_icon_size, done_img, "X")
+
+    if platform ~= PLATFORMS.DESKTOP then
+        draw_general_icon(icon_x, icon_y, icon_x + VS.done_icon_size, icon_y + VS.done_icon_size, done_img, "X")
+    end
 
     -- draw credits
     local credits_x = VS.done_x + VS.done_width + VS.credits_x_buffer
@@ -281,9 +292,12 @@ function draw_settings()
 
     -- draw settings items
     draw_settings_item("sound")
-    draw_settings_item("buttons")
-    draw_settings_item("reset_button")
     draw_settings_item("confirmations")
+
+    if platform ~= PLATFORMS.DESKTOP then
+        draw_settings_item("buttons")
+        draw_settings_item("reset_button")
+    end
 
     -- draw done button & credits
     draw_done_button_and_credits()
@@ -305,14 +319,16 @@ function handle_tap_settings(x, y)
     -- select setting (NOT button, so we don't return)
     settings_sel_item = nil
     for setting_name, setting_item in pairs(settings_items) do
-        if xy_in_xyxy(x, y,
-            setting_item.x1,
-            setting_item.y1,
-            setting_item.x2,
-            setting_item.y2) then
+        if (platform ~= PLATFORMS.DESKTOP) or (setting_item.show_on_desktop) then
+            if xy_in_xyxy(x, y,
+                setting_item.x1,
+                setting_item.y1,
+                setting_item.x2,
+                setting_item.y2) then
 
-            settings_sel_item = setting_name
-            break
+                settings_sel_item = setting_name
+                break
+            end
         end
     end
 
@@ -354,50 +370,6 @@ function handle_tap_settings(x, y)
         return
     end
     if xy_in_xywh(x, y,
-        settings_items["buttons"].A.x,
-        settings_items["buttons"].A.y,
-        settings_items["buttons"].A.width,
-        settings_items["buttons"].A.height) then
-
-        SETTINGS.buttons.value = "ox"
-        play_sound("click")
-
-        return
-    end
-    if xy_in_xywh(x, y,
-        settings_items["buttons"].B.x,
-        settings_items["buttons"].B.y,
-        settings_items["buttons"].B.width,
-        settings_items["buttons"].B.height) then
-
-        SETTINGS.buttons.value = "xo"
-        play_sound("click")
-
-        return
-    end
-    if xy_in_xywh(x, y,
-        settings_items["reset_button"].A.x,
-        settings_items["reset_button"].A.y,
-        settings_items["reset_button"].A.width,
-        settings_items["reset_button"].A.height) then
-
-        SETTINGS.reset_button.value = "triangle"
-        play_sound("click")
-
-        return
-    end
-    if xy_in_xywh(x, y,
-        settings_items["reset_button"].B.x,
-        settings_items["reset_button"].B.y,
-        settings_items["reset_button"].B.width,
-        settings_items["reset_button"].B.height) then
-
-        SETTINGS.reset_button.value = "start"
-        play_sound("click")
-
-        return
-    end
-    if xy_in_xywh(x, y,
         settings_items["confirmations"].A.x,
         settings_items["confirmations"].A.y,
         settings_items["confirmations"].A.width,
@@ -418,6 +390,55 @@ function handle_tap_settings(x, y)
         play_sound("click")
 
         return
+    end
+
+    if (platform ~= PLATFORMS.DESKTOP) or (settings_items["buttons"].show_on_desktop) then
+        if xy_in_xywh(x, y,
+            settings_items["buttons"].A.x,
+            settings_items["buttons"].A.y,
+            settings_items["buttons"].A.width,
+            settings_items["buttons"].A.height) then
+
+            SETTINGS.buttons.value = "ox"
+            play_sound("click")
+
+            return
+        end
+        if xy_in_xywh(x, y,
+            settings_items["buttons"].B.x,
+            settings_items["buttons"].B.y,
+            settings_items["buttons"].B.width,
+            settings_items["buttons"].B.height) then
+
+            SETTINGS.buttons.value = "xo"
+            play_sound("click")
+
+            return
+        end
+    end
+    if (platform ~= PLATFORMS.DESKTOP) or (settings_items["reset_button"].show_on_desktop) then
+        if xy_in_xywh(x, y,
+            settings_items["reset_button"].A.x,
+            settings_items["reset_button"].A.y,
+            settings_items["reset_button"].A.width,
+            settings_items["reset_button"].A.height) then
+
+            SETTINGS.reset_button.value = "triangle"
+            play_sound("click")
+
+            return
+        end
+        if xy_in_xywh(x, y,
+            settings_items["reset_button"].B.x,
+            settings_items["reset_button"].B.y,
+            settings_items["reset_button"].B.width,
+            settings_items["reset_button"].B.height) then
+
+            SETTINGS.reset_button.value = "start"
+            play_sound("click")
+
+            return
+        end
     end
 
 end

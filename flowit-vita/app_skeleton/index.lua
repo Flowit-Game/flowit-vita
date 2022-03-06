@@ -8,12 +8,13 @@ loadlib("io_vita")
 loadlib("graphics_vita")
 loadlib("controls_vita")
 
+-- globals
+loadlib("globals")
+platform = PLATFORMS.VITA
+
 -- other libraries
 loadlib("util")
 loadlib("translation")
-loadlib("globals")
-
---loadlib("app_logic")
 
 loadlib("dialogs")
 loadlib("settings")
@@ -288,23 +289,23 @@ while true do
         else
             if (button == BUTTON_SINGLE_LTRIGGER or button == BUTTON_HELD_LTRIGGER or button == BUTTON_SINGLE_UP or button == BUTTON_HELD_UP) then
                 if settings_sel_item == nil then
-                    settings_sel_item = "confirmations"
-                elseif settings_sel_item == "confirmations" then
                     settings_sel_item = "reset_button"
                 elseif settings_sel_item == "reset_button" then
                     settings_sel_item = "buttons"
                 elseif settings_sel_item == "buttons" then
+                    settings_sel_item = "confirmations"
+                elseif settings_sel_item == "confirmations" then
                     settings_sel_item = "sound"
                 end
             elseif (button == BUTTON_SINGLE_RTRIGGER or button == BUTTON_HELD_RTRIGGER or button == BUTTON_SINGLE_DOWN or button == BUTTON_HELD_DOWN) then
                 if settings_sel_item == nil then
                     settings_sel_item = "sound"
                 elseif settings_sel_item == "sound" then
+                    settings_sel_item = "confirmations"
+                elseif settings_sel_item == "confirmations" then
                     settings_sel_item = "buttons"
                 elseif settings_sel_item == "buttons" then
                     settings_sel_item = "reset_button"
-                elseif settings_sel_item == "reset_button" then
-                    settings_sel_item = "confirmations"
                 end
             --elseif (button == BUTTON_SINGLE_CIRCLE) then
             elseif (button == BUTTON_SINGLE_CROSS) then

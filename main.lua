@@ -2,7 +2,7 @@
 -- This is the desktop version, which loads love libraries instead of vita libraries
 
 function loadlib(str)
-    dofile("lib/" .. str .. ".lua")
+    require("lib/" .. str)
 end
 
 -- desktop-specific libraries
@@ -10,12 +10,13 @@ loadlib("io_desktop")
 loadlib("graphics_desktop")
 locale = require("lib/locale")
 
+-- globals
+loadlib("globals")
+platform = PLATFORMS.DESKTOP
+
 -- other libraries
 loadlib("util")
 loadlib("translation")
-loadlib("globals")
-
---loadlib("app_logic")
 
 loadlib("dialogs")
 loadlib("settings")
