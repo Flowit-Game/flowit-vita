@@ -17,6 +17,7 @@ VG.inside_gap_size = 0
 VG.font_big = 36
 VG.font_medium = 30
 VG.font_small = 24
+VG.font_author = 20
 
 control_area = {}
 
@@ -350,7 +351,7 @@ function draw_info()
     end
 
     if (author ~= nil) then
-        draw_text(x_offset, 95 + y_offset, VG.font_small, get_i18n("by:") .. author, "d", default_font_name)
+        draw_text(x_offset, 95 + y_offset, VG.font_author, author, "d", default_font_name)
     end
 
     draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "d", default_font_name)
