@@ -10,6 +10,7 @@ loadlib("controls_vita")
 
 -- globals
 loadlib("globals")
+loadlib("version")
 platform = PLATFORMS.VITA
 
 -- other libraries

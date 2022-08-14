@@ -4,6 +4,10 @@ set -euo pipefail
 BUILD_MAC=0
 BUILD_WIN=0
 
+# get app version from lib/version.lua
+appver=$(grep "^version_str =" lib/version.lua | cut -d '"' -f 2)
+[[ "$appver" =~ ^[0-9]\.[0-9][0-9]$ ]] || (echo "App version extraction failed: $appver is not x.xx. Aborting." && exit 1)
+
 options=$(getopt -l "win,mac,help" -o "w,m,h" -a -- "$@")
 eval set -- "$options"
 while true
@@ -45,7 +49,7 @@ if [[ $BUILD_WIN -eq 1 ]]; then
     echo "Packaging Windows exe..."
 
     WIN_FLOWIT_DIR="flowit-win"
-    WIN_FLOWIT_ZIP="$WIN_FLOWIT_DIR.zip"
+    WIN_FLOWIT_ZIP="${WIN_FLOWIT_DIR}-v${appver}.zip"
 
     WIN_LOVE_DIR="love-11.4-win32"
     WIN_LOVE_ZIP="$WIN_LOVE_DIR.zip"
@@ -86,7 +90,7 @@ if [[ $BUILD_MAC -eq 1 ]]; then
 
     MAC_LOVE_APP_DIR="love.app"
     MAC_FLOWIT_APP_DIR="Flowit.app"
-    MAC_FLOWIT_APP_ZIP="Flowit.app.zip"
+    MAC_FLOWIT_APP_ZIP="Flowit-mac-v${appver}.zip"
 
     MAC_LOVE_DIR="love-11.4-macos"
     MAC_LOVE_ZIP="$MAC_LOVE_DIR.zip"
