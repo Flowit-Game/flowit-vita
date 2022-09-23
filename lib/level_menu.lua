@@ -43,7 +43,7 @@ local function draw_level_square(r, c, level_i, modifier)
 
     local fill_color = "b"
     if modifier == "lock" then
-        fill_color = "d"
+        fill_color = "t"
     elseif modifier == "check" then
         fill_color = "b"
     end
@@ -79,7 +79,7 @@ local function draw_settings_button()
 
     local text_x = VLM.settings_x + (VLM.settings_width - text_w)/2
     local text_y = VLM.settings_y + (VLM.settings_height - text_h)/2
-    draw_rect(VLM.settings_x, VLM.settings_y, VLM.settings_x + VLM.settings_width, VLM.settings_y + VLM.settings_height, "d")
+    draw_rect(VLM.settings_x, VLM.settings_y, VLM.settings_x + VLM.settings_width, VLM.settings_y + VLM.settings_height, "t")
     draw_text(text_x, text_y, font_size, text, "X", default_font_name)
 end
 
@@ -118,7 +118,7 @@ function draw_level_menu()
     for tj, pack in pairs(game_packs) do
         local pack_str = get_i18n(pack)
         local y_offset_text = VLM.header_y_buffer + (tj-1)*VLM.header_y_step
-        local text_color = "d"
+        local text_color = "t"
         if pack == game_status.pack then
             text_color = "b"
         end
@@ -142,7 +142,7 @@ function draw_level_menu()
         local cell = n_to_rc(n)
 
         if n == sel_level then
-            draw_selection_square(cell.r, cell.c, "d")
+            draw_selection_square(cell.r, cell.c, "t")
         end
 
         if get_high_score(game_status.pack, n) then

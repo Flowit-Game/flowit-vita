@@ -158,7 +158,7 @@ local function draw_done_button_and_credits()
         done_img = misc_images["cross"]
     end
 
-    draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "d")
+    draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "t")
     draw_text(text_x, text_y, font_size, text, "X", default_font_name)
 
     if platform ~= PLATFORMS.DESKTOP then
@@ -167,7 +167,7 @@ local function draw_done_button_and_credits()
 
     -- draw credits
     local credits_x = VS.done_x + VS.done_width + VS.credits_x_buffer
-    draw_text(credits_x, VS.credits_y, VS.credits_font, get_i18n("credits"), "d", message_font_name)
+    draw_text(credits_x, VS.credits_y, VS.credits_font, get_i18n("credits"), "t", message_font_name)
 end
 
 local function draw_button(setting_name, AB, selected)
@@ -177,8 +177,8 @@ local function draw_button(setting_name, AB, selected)
         button = item.B
     end
 
-    local bg_color = "d"
-    local fg_color = "d"
+    local bg_color = "t"
+    local fg_color = "t"
     if selected then
         bg_color = "b"
         fg_color = "X"
@@ -257,7 +257,7 @@ local function draw_label(setting_name)
     local y = math.ceil(item.y_center - text_h/2)
     local x = VS.header_width - text_w
 
-    draw_text(x, y, font_size, text, "d", default_font_name)
+    draw_text(x, y, font_size, text, "t", default_font_name)
 end
 
 local function draw_settings_item(setting_name)

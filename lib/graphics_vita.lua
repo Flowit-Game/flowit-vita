@@ -7,6 +7,7 @@ colors_1 = {
     ["o"] = Color.new(246, 202,  24),
     ["d"] = Color.new(113, 113, 113),
 
+    ["t"] = Color.new(113, 113, 113),
     ["5"] = Color.new(0, 0, 0, 153),
     -- colors: r, b, g, o, d
 }
@@ -18,8 +19,9 @@ colors_2 = {
     ["b"] = Color.new( 89, 187, 242),
     ["g"] = Color.new(  0,  85, 133),
     ["o"] = Color.new(246, 202,  24),
-    ["d"] = Color.new(113, 113, 113),
+    ["d"] = Color.new(155, 155, 155),
 
+    ["t"] = Color.new(113, 113, 113),
     ["5"] = Color.new(0, 0, 0, 0.6),
     -- colors: r, b, g, o, d
 }
