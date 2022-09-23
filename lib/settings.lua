@@ -21,6 +21,11 @@ SETTINGS.confirmations = {
     default = "on",
     value = "on",
 }
+SETTINGS.color_scheme = {
+    options = {"color_scheme_1", "color_scheme_2"},
+    default = "color_scheme_1",
+    value = "color_scheme_1",
+}
 
 local function reset_invalid_settings()
     for k, setting in pairs(SETTINGS) do
@@ -56,6 +61,8 @@ function load_settings()
                         SETTINGS.reset_button.value = val
                     elseif key == "confirmations" then
                         SETTINGS.confirmations.value = val
+                    elseif key == "color_scheme" then
+                        SETTINGS.color_scheme.value = val
                     end
                 end
 

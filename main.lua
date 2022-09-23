@@ -76,6 +76,12 @@ text_dimensions(get_i18n("yes"), VD.font_button, message_font_name)
 -- load settings
 load_settings()
 
+-- set colorscheme
+colors = colors_1
+if SETTINGS.color_scheme.value == "color_scheme_2" then
+    colors = colors_2
+end
+
 
 all_levels = load_all_levels()
 high_scores_data = load_high_scores()

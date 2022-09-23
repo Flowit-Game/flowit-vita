@@ -1,4 +1,4 @@
-colors = {
+colors_1 = {
     ["0"] = Color.new(255, 255, 255),
     ["X"] = Color.new(230, 230, 230),
     ["r"] = Color.new(245,  21,  24),
@@ -11,7 +11,21 @@ colors = {
     -- colors: r, b, g, o, d
 }
 
+colors_2 = {
+    ["0"] = Color.new(255, 255, 255),
+    ["X"] = Color.new(230, 230, 230),
+    ["r"] = Color.new(191,  75,   0),
+    ["b"] = Color.new( 89, 187, 242),
+    ["g"] = Color.new(  0,  85, 133),
+    ["o"] = Color.new(246, 202,  24),
+    ["d"] = Color.new(113, 113, 113),
 
+    ["5"] = Color.new(0, 0, 0, 0.6),
+    -- colors: r, b, g, o, d
+}
+
+-- init to default color scheme
+colors = colors_1
 
 function screen_width()
     return 960

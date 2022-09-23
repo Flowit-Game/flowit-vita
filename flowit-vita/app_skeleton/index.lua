@@ -87,10 +87,16 @@ text_dimensions(get_i18n("conf_reset"),     VD.font_msg1, message_font_name)
 --text_dimensions(get_i18n("level complete"), VD.font_msg1, default_font_name)
 text_dimensions(get_i18n("xo_buttons"), VS.header_font, default_font_name)
 text_dimensions(get_i18n("confirmations"), VS.header_font, default_font_name)
+text_dimensions(get_i18n("color_scheme"), VS.header_font, default_font_name)
 
 -- load settings
 load_settings()
 
+-- set colorscheme
+colors = colors_1
+if SETTINGS.color_scheme.value == "color_scheme_2" then
+    colors = colors_2
+end
 
 
 -- load images
@@ -294,6 +300,8 @@ while true do
                 elseif settings_sel_item == "reset_button" then
                     settings_sel_item = "buttons"
                 elseif settings_sel_item == "buttons" then
+                    settings_sel_item = "color_scheme"
+                elseif settings_sel_item == "color_scheme" then
                     settings_sel_item = "confirmations"
                 elseif settings_sel_item == "confirmations" then
                     settings_sel_item = "sound"
@@ -304,6 +312,8 @@ while true do
                 elseif settings_sel_item == "sound" then
                     settings_sel_item = "confirmations"
                 elseif settings_sel_item == "confirmations" then
+                    settings_sel_item = "color_scheme"
+                elseif settings_sel_item == "color_scheme" then
                     settings_sel_item = "buttons"
                 elseif settings_sel_item == "buttons" then
                     settings_sel_item = "reset_button"
@@ -329,6 +339,10 @@ while true do
                 elseif settings_sel_item == "confirmations" then
                     SETTINGS.confirmations.value = "off"
                     play_sound("click")
+                elseif settings_sel_item == "color_scheme" then
+                    SETTINGS.color_scheme.value = "color_scheme_2"
+                    colors = colors_2;
+                    play_sound("click")
                 end
             elseif (button == BUTTON_SINGLE_LEFT or button == BUTTON_HELD_LEFT) then
                 if settings_sel_item == "sound" then
@@ -342,6 +356,10 @@ while true do
                     play_sound("click")
                 elseif settings_sel_item == "confirmations" then
                     SETTINGS.confirmations.value = "on"
+                    play_sound("click")
+                elseif settings_sel_item == "color_scheme" then
+                    SETTINGS.color_scheme.value = "color_scheme_1"
+                    colors = colors_1;
                     play_sound("click")
                 end
             end
