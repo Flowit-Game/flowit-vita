@@ -19,7 +19,11 @@ VS.done_icon_size = 32
 
 VS.credits_x_buffer = 40
 VS.credits_font     = 18
-VS.credits_y        = 544 - 3*(VS.credits_font+3) - VS.screen_margin
+
+VS.credits_y        = 544 - 4*(VS.credits_font+3) - VS.screen_margin
+if platform ~= PLATFORMS.DESKTOP then
+    VS.credits_y        = 544 - 4*(VS.credits_font) - VS.screen_margin
+end
 
 VS.button_width     = 120
 VS.button_min_height = 48

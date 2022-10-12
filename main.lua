@@ -12,6 +12,7 @@ locale = require("lib/locale")
 
 -- globals
 loadlib("globals")
+loadlib("version")
 platform = PLATFORMS.DESKTOP
 
 -- other libraries

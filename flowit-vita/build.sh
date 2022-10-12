@@ -1,4 +1,5 @@
-#! /bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 make_pkg=true
 
@@ -20,6 +21,10 @@ done
 title="Flowit"
 appid="FLWT02021"
 
+# get app version from ../lib/version.lua
+appver=$(grep "^version_str =" ../lib/version.lua | cut -d '"' -f 2)
+[[ "$appver" =~ ^[0-9]\.[0-9][0-9]$ ]] || (echo "App version extraction failed: $appver is not x.xx. Aborting." && exit 1)
+
 # Copy app skeleton and lua libs to build folder
 echo "Copying build files"
 mkdir -p build
@@ -36,6 +41,6 @@ cp -r ../lib/!(*_desktop.lua|locale) build/assets/lib/
 if $make_pkg
 then
     # Make vita package
-    vita-mksfoex -s TITLE_ID="${appid}" "${title}" build/sce_sys/param.sfo
-    7z a -tzip "${title}.vpk" -r ./build/* ./build/eboot.bin
+    vita-mksfoex -s APP_VER="0${appver}" -s TITLE_ID="${appid}" "${title}" build/sce_sys/param.sfo
+    7z a -tzip "${title}_v${appver}.vpk" -r ./build/* ./build/eboot.bin
 fi
