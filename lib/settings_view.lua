@@ -7,8 +7,8 @@ VS.nx              = 0
 VS.cell_font       = 16
 VS.header_font     = 50
 VS.header_width    = 520
-VS.header_y_buffer = 70
-VS.header_y_step   = 110
+VS.header_y_buffer = 40
+VS.header_y_step   = 90
 
 VS.done_x         = VS.screen_margin
 VS.done_y         = 544 - 60 - VS.screen_margin
@@ -52,10 +52,44 @@ settings_items["sound"] = {
         msg1 = "off",
     },
 }
+settings_items["confirmations"] = {
+    label = "confirmations",
+    show_on_desktop = true,
+    y_center = VS.header_y_buffer + 1*VS.header_y_step,
+
+    A = {
+        x = VS.buttonA_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "on",
+    },
+
+    B = {
+        x = VS.buttonB_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "off",
+    },
+}
+settings_items["color_scheme"] = {
+    label = "color_scheme",
+    show_on_desktop = true,
+    y_center = VS.header_y_buffer + 2*VS.header_y_step,
+
+    A = {
+        x = VS.buttonA_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "color_scheme_1",
+    },
+
+    B = {
+        x = VS.buttonB_x, y = 0,
+        width = VS.button_width, height = 0,
+        msg1 = "color_scheme_2",
+    },
+}
 settings_items["buttons"] = {
     label = "xo_buttons",
     show_on_desktop = false,
-    y_center = VS.header_y_buffer + 2*VS.header_y_step,
+    y_center = VS.header_y_buffer + 3*VS.header_y_step,
 
     A = {
         x = VS.buttonA_x, y = 0,
@@ -78,7 +112,7 @@ settings_items["buttons"] = {
 settings_items["reset_button"] = {
     label = "reset_button",
     show_on_desktop = false,
-    y_center = VS.header_y_buffer + 3*VS.header_y_step,
+    y_center = VS.header_y_buffer + 4*VS.header_y_step,
 
     A = {
         x = VS.buttonA_x, y = 0,
@@ -93,23 +127,6 @@ settings_items["reset_button"] = {
         msg1 = "",
         icon1 = "start",
         icon1_size = 44
-    },
-}
-settings_items["confirmations"] = {
-    label = "confirmations",
-    show_on_desktop = true,
-    y_center = VS.header_y_buffer + 1*VS.header_y_step,
-
-    A = {
-        x = VS.buttonA_x, y = 0,
-        width = VS.button_width, height = 0,
-        msg1 = "on",
-    },
-
-    B = {
-        x = VS.buttonB_x, y = 0,
-        width = VS.button_width, height = 0,
-        msg1 = "off",
     },
 }
 
@@ -141,7 +158,7 @@ local function draw_done_button_and_credits()
         done_img = misc_images["cross"]
     end
 
-    draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "d")
+    draw_rect(VS.done_x, VS.done_y, VS.done_x + VS.done_width, VS.done_y + VS.done_height, "t")
     draw_text(text_x, text_y, font_size, text, "X", default_font_name)
 
     if platform ~= PLATFORMS.DESKTOP then
@@ -150,7 +167,7 @@ local function draw_done_button_and_credits()
 
     -- draw credits
     local credits_x = VS.done_x + VS.done_width + VS.credits_x_buffer
-    draw_text(credits_x, VS.credits_y, VS.credits_font, get_i18n("credits"), "d", message_font_name)
+    draw_text(credits_x, VS.credits_y, VS.credits_font, get_i18n("credits"), "t", message_font_name)
 end
 
 local function draw_button(setting_name, AB, selected)
@@ -160,8 +177,8 @@ local function draw_button(setting_name, AB, selected)
         button = item.B
     end
 
-    local bg_color = "d"
-    local fg_color = "d"
+    local bg_color = "t"
+    local fg_color = "t"
     if selected then
         bg_color = "b"
         fg_color = "X"
@@ -240,7 +257,7 @@ local function draw_label(setting_name)
     local y = math.ceil(item.y_center - text_h/2)
     local x = VS.header_width - text_w
 
-    draw_text(x, y, font_size, text, "d", default_font_name)
+    draw_text(x, y, font_size, text, "t", default_font_name)
 end
 
 local function draw_settings_item(setting_name)
@@ -251,6 +268,7 @@ local function draw_settings_item(setting_name)
     or (setting_name == "buttons" and SETTINGS.buttons.value == "ox")
     or (setting_name == "reset_button" and SETTINGS.reset_button.value == "triangle")
     or (setting_name == "confirmations" and SETTINGS.confirmations.value == "on")
+    or (setting_name == "color_scheme" and SETTINGS.color_scheme.value == "color_scheme_1")
 
     draw_button(setting_name, "A", A_sel)
     draw_button(setting_name, "B", not A_sel)
@@ -297,9 +315,12 @@ function draw_settings()
     -- draw settings items
     draw_settings_item("sound")
     draw_settings_item("confirmations")
+    draw_settings_item("color_scheme")
 
-    if platform ~= PLATFORMS.DESKTOP then
+    if (platform ~= PLATFORMS.DESKTOP) or (settings_items["buttons"].show_on_desktop) then
         draw_settings_item("buttons")
+    end
+    if (platform ~= PLATFORMS.DESKTOP) or (settings_items["reset_button"].show_on_desktop) then
         draw_settings_item("reset_button")
     end
 
@@ -391,6 +412,30 @@ function handle_tap_settings(x, y)
         settings_items["confirmations"].B.height) then
 
         SETTINGS.confirmations.value = "off"
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["color_scheme"].A.x,
+        settings_items["color_scheme"].A.y,
+        settings_items["color_scheme"].A.width,
+        settings_items["color_scheme"].A.height) then
+
+        SETTINGS.color_scheme.value = "color_scheme_1"
+        colors = colors_1
+        play_sound("click")
+
+        return
+    end
+    if xy_in_xywh(x, y,
+        settings_items["color_scheme"].B.x,
+        settings_items["color_scheme"].B.y,
+        settings_items["color_scheme"].B.width,
+        settings_items["color_scheme"].B.height) then
+
+        SETTINGS.color_scheme.value = "color_scheme_2"
+        colors = colors_2
         play_sound("click")
 
         return

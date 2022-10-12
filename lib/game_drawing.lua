@@ -262,7 +262,7 @@ function draw_control_icon(control_str)
     local y1 = control_area[control_str].y
     local x2 = x1 + control_area[control_str].w
     local y2 = y1 + control_area[control_str].h
-    draw_general_icon(x1, y1, x2, y2, control_images[control_str], "d")
+    draw_general_icon(x1, y1, x2, y2, control_images[control_str], "t")
 end
 function draw_control_text(control_str)
     local ca = control_area[control_str]
@@ -292,7 +292,7 @@ function draw_control_text(control_str)
     ca.h = text_h
 
 
-    draw_rect(ca.x, ca.y, ca.x + ca.w, ca.y + ca.h, "d")
+    draw_rect(ca.x, ca.y, ca.x + ca.w, ca.y + ca.h, "t")
     draw_text(x1, y1, font_size, text, "X", default_font_name)
 end
 
@@ -321,16 +321,16 @@ function draw_info()
         pack_font = VG.font_medium
     end
 
-    draw_text(x_offset, 0 + y_offset, pack_font, pack_str, "d", default_font_name)
+    draw_text(x_offset, 0 + y_offset, pack_font, pack_str, "t", default_font_name)
 
     local level_prefix = get_i18n("level_prefix") or ""
     local level_postfix = get_i18n("level_postfix") or ""
     if level_postfix and #level_postfix > 0 then
-        draw_text(x_offset, 50 + y_offset, VG.font_big, level_prefix .. tostring(game_status.level) .. level_postfix, "d", default_font_name)
+        draw_text(x_offset, 50 + y_offset, VG.font_big, level_prefix .. tostring(game_status.level) .. level_postfix, "t", default_font_name)
     else
         local level_w, _ = text_dimensions(level_prefix .. " ", VG.font_big, default_font_name)
-        draw_text(x_offset, 50 + y_offset, VG.font_big, level_prefix, "d", default_font_name)
-        draw_text(x_offset + level_w, 50 + y_offset, VG.font_big, tostring(game_status.level), "d", number_font_name)
+        draw_text(x_offset, 50 + y_offset, VG.font_big, level_prefix, "t", default_font_name)
+        draw_text(x_offset + level_w, 50 + y_offset, VG.font_big, tostring(game_status.level), "t", number_font_name)
     end
 
     local moves_w, _ = text_dimensions(get_i18n("moves:"), VG.font_small, default_font_name)
@@ -351,21 +351,21 @@ function draw_info()
     end
 
     if (author ~= nil) then
-        draw_text(x_offset, 95 + y_offset, VG.font_author, author, "d", default_font_name)
+        draw_text(x_offset, 95 + y_offset, VG.font_author, author, "t", default_font_name)
     end
 
-    draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "d", default_font_name)
-    draw_text(x_offset + moves_w, 115 + author_y_offset + y_offset, VG.font_small, tostring(game_status.steps), "d", number_font_name)
+    draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "t", default_font_name)
+    draw_text(x_offset + moves_w, 115 + author_y_offset + y_offset, VG.font_small, tostring(game_status.steps), "t", number_font_name)
 
     local hs = get_high_score(game_status.pack, game_status.level)
     local hs_cache = get_cached_high_score(game_status.pack, game_status.level)
     if hs ~= nil then
 
-        draw_text(x_offset, 145 + author_y_offset + y_offset, VG.font_small, get_i18n("best:"), "d", default_font_name)
+        draw_text(x_offset, 145 + author_y_offset + y_offset, VG.font_small, get_i18n("best:"), "t", default_font_name)
         if (is_game_over) and (hs_cache) and (hs < hs_cache) then
-            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs_cache), "d", number_font_name)
+            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs_cache), "t", number_font_name)
         else
-            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs), "d", number_font_name)
+            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs), "t", number_font_name)
         end
 
     end
