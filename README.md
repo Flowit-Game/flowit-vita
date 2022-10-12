@@ -14,21 +14,21 @@ First, install the [LÖVE](https://love2d.org) engine . The LÖVE package is ava
 
 To run from the release, download the `flowit.love` release file. The system should recognize it as a LÖVE executable. Otherwise, run from the command line by executing `love /path/to/flowit.love`.
 
-To build for Linux, clone the source and execute `./build_desktop`; this will produce the `flowit.love` file which can then be executed.
+To build for Linux, clone the source (be sure to recursively clone submodules) and execute `./build_desktop`; this will produce the `flowit.love` file which can then be executed.
 
 The app can also be run directly from the source without any packaging. Just clone the repository and execute `love .` from the top directory.
 
 ### Windows
 To run from the release, download and unzip the `flowit-win` release file, then run `Flowit.exe`.
 
-To build the Windows executable on Linux, clone the source and execute `./build_desktop --win` (note that this will not set the Flowit icon for the executable; that must be done from Windows or wine).
+To build the Windows executable on Linux, clone the source (be sure to recursively clone submodules) and execute `./build_desktop --win` (note that this will not set the Flowit icon for the executable; that must be done from Windows or wine).
 
 To build the Windows executable on Windows, follow the [instructions](https://love2d.org/wiki/Game_Distribution) on the LÖVE wiki (building Flowit on Windows has not been tested).
 
 ### Mac
 To run from the release, download and unzip the `Flowit-mac` release file, then run `Flowit.app`.
 
-To build the Mac app on Linux, clone the source and execute `./build_desktop --mac`. This build process should work on Mac also, but has not been tested.
+To build the Mac app on Linux, clone the source (be sure to recursively clone submodules) and execute `./build_desktop --mac`. This build process should work on Mac also, but has not been tested.
 
 ## Running on PS Vita
 Download the latest VPK release file and sideload it using VitaShell or similar.
