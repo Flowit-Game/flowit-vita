@@ -42,3 +42,15 @@ end
 function round(n)
     return math.floor(n+0.5)
 end
+
+-- Given a string, return true if it should be rendered in the fallback font and
+-- false if it should be rendered in the default font (goodtimes).
+-- Goodtimes has < 400 characters, so we just check directly instead of using
+-- any font utils.
+function needsFallbackFont(str)
+    local non_goodtimes = "[^ !\"#$%%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\%]^_`abcdefghijklmnopqrstuvwxyz{|}~ ¡¢£¥¦§¨©ª«®¯°±²³´¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĊċČčĎďĐđĒēĔĕĖėĘęĚěĞğĠġĢģĦħĪīĬĭĮįİıĲĳĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțˆˇ˘˙˚˛˜˝̦ẀẁẂẃẄẅỲỳ–—‘’‚“”„†‡•…‰‹›⁄⁰⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅]"
+    if (string.match(str, non_goodtimes)) then
+        return true
+    end
+    return false
+end
