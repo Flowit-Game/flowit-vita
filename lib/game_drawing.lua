@@ -351,7 +351,13 @@ function draw_info()
     end
 
     if (author ~= nil) then
-        draw_text(x_offset, 95 + y_offset, VG.font_author, author, "t", default_font_name)
+
+        local author_font_name = default_font_name
+        if (needsFallbackFont(author)) then
+            author_font_name = fallback_font_name
+        end
+
+        draw_text(x_offset, 95 + y_offset, VG.font_author, author, "t", author_font_name)
     end
 
     draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "t", default_font_name)

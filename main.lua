@@ -62,6 +62,7 @@ end
 default_font_name = "good-times-rg.ttf"
 number_font_name = "good-times-rg.ttf"
 message_font_name = "LiberationSans-Regular.ttf" -- readable font for dialog text
+fallback_font_name = "SourceHanSansHW-VF.ttf" -- fallback for characters not in good-times-rg
 
 if (lang_code == "ja") or (lang_code == "ko") or (lang_code == "zh_t") or (lang_code == "zh_s") then
     default_font_name = "SourceHanSansHW-VF.ttf"
