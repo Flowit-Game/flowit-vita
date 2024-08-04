@@ -5,6 +5,7 @@ strings_i18n["en"] = {
     ["level_prefix"] = "level",
     ["level_postfix"] = "",
     ["best:"]  = "best:",
+    ["optimal:"]  = "optimal:",
     ["by:"]  = "by ",
     ["back"]   = "back",
 
@@ -46,7 +47,8 @@ strings_i18n["ja"] = {
     ["moves:"] = "指し手：",
     ["level_prefix"] = "レベル",
     ["level_postfix"] = "",
-    ["best:"]  = "ベスト：",
+    ["best:"]  = "自己ベスト：",
+    ["optimal:"]  = "最適：",
     ["by:"]  = "作成者：",
     ["back"]   = "戻る",
 
@@ -81,14 +83,15 @@ strings_i18n["ja"] = {
     ["no"] = "いいえ",
     ["yes"] = "はい",
 
-    ["credits"] = "Flowitゲームクリエイター：ByteHamster\nゲーム移植：ywnico\nバージョン：" .. version_str .. "\ngithub.com/Flowit-Game",
+    ["credits"] = "Flowitゲームクリエイター：ByteHamster\nゲームソフト移植：ywnico\nバージョン：" .. version_str .. "\ngithub.com/Flowit-Game",
 }
 
 strings_i18n["zh_t"] = {
     ["moves:"] = "步：",
     ["level_prefix"] = "",
     ["level_postfix"] = "級",
-    ["best:"]  = "最佳：",
+    ["best:"]  = "個人最佳：",
+    ["optimal:"]  = "最優：",
     ["by:"]  = "作者：",
     ["back"]   = "回去",
 
@@ -130,7 +133,8 @@ strings_i18n["zh_s"] = {
     ["moves:"] = "步：",
     ["level_prefix"] = "",
     ["level_postfix"] = "级",
-    ["best:"]  = "最佳：",
+    ["best:"]  = "个人最佳：",
+    ["optimal:"]  = "最优：",
     ["by:"]  = "作者：",
     ["back"]   = "回去",
 
@@ -165,7 +169,7 @@ strings_i18n["zh_s"] = {
     ["no"] = "否",
     ["yes"] = "是",
 
-    ["credits"] = "Flowit游戏作者：ByteHamster\n软体移植：ywnico\n版本：" .. version_str .. "\ngithub.com/Flowit-Game",
+    ["credits"] = "Flowit游戏作者：ByteHamster\n软件移植：ywnico\n版本：" .. version_str .. "\ngithub.com/Flowit-Game",
 }
 
 function get_i18n(s)

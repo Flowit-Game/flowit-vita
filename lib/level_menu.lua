@@ -46,17 +46,24 @@ local function draw_level_square(r, c, level_i, modifier)
         fill_color = "t"
     elseif modifier == "check" then
         fill_color = "b"
+    elseif modifier == "star" then
+        fill_color = "b"
     end
 
     draw_rect(x1, y1, x2, y2, fill_color)
     draw_text(x1+2, y1+1, VLM.cell_font, tostring(level_i), "0", number_font_name)
 
     local icon_x_offset = VLM.cell_size*0.5
+    local icon_x_offset_left = VLM.cell_size*0.05
     local icon_y_offset = VLM.cell_size*0.5
     local icon_size = VLM.cell_size*0.4
 
     if (modifier == "check") or (modifier == "lock") then
         draw_general_icon(x1 + icon_x_offset, y1 + icon_y_offset, x1 + icon_x_offset + icon_size, y1 + icon_y_offset + icon_size, misc_images[modifier], "0")
+    elseif (modifier == "star") then
+        -- draw check and star
+        draw_general_icon(x1 + icon_x_offset, y1 + icon_y_offset, x1 + icon_x_offset + icon_size, y1 + icon_y_offset + icon_size, misc_images["check"], "0")
+        draw_general_icon(x1 + icon_x_offset_left, y1 + icon_y_offset, x1 + icon_x_offset_left + icon_size, y1 + icon_y_offset + icon_size, misc_images["star"], "0")
     end
 end
 
@@ -146,7 +153,11 @@ function draw_level_menu()
         end
 
         if get_high_score(game_status.pack, n) then
-            draw_level_square(cell.r, cell.c, n, "check")
+            if is_level_optimally_beaten(game_status.pack, n) then
+                draw_level_square(cell.r, cell.c, n, "star")
+            else
+                draw_level_square(cell.r, cell.c, n, "check")
+            end
         elseif is_level_locked(game_status.pack, n) then
             draw_level_square(cell.r, cell.c, n, "lock")
         else

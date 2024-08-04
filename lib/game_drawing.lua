@@ -335,7 +335,8 @@ function draw_info()
 
     local moves_w, _ = text_dimensions(get_i18n("moves:"), VG.font_small, default_font_name)
     local best_w, _ = text_dimensions(get_i18n("best:"), VG.font_small, default_font_name)
-    moves_w = math.max(moves_w, best_w) + math.ceil(VG.font_small/2)
+    local optimal_w, _ = text_dimensions(get_i18n("optimal:"), VG.font_small, default_font_name)
+    moves_w = math.max(moves_w, best_w, optimal_w) + math.ceil(VG.font_small/2)
 
     local author = nil
     local author_y_offset = 0
@@ -363,16 +364,26 @@ function draw_info()
     draw_text(x_offset, 115 + author_y_offset + y_offset, VG.font_small, get_i18n("moves:"), "t", default_font_name)
     draw_text(x_offset + moves_w, 115 + author_y_offset + y_offset, VG.font_small, tostring(game_status.steps), "t", number_font_name)
 
+    local next_y_offset = 30
+
+    local opt_s = get_optimal_score(game_status.pack, game_status.level)
+    if opt_s ~= nil then
+        draw_text(x_offset, 115 + next_y_offset + author_y_offset + y_offset, VG.font_small, get_i18n("optimal:"), "t", default_font_name)
+        draw_text(x_offset + moves_w, 115 + next_y_offset + author_y_offset + y_offset, VG.font_small, tostring(opt_s), "t", number_font_name)
+        next_y_offset = next_y_offset + 30
+    end
+
     local hs = get_high_score(game_status.pack, game_status.level)
     local hs_cache = get_cached_high_score(game_status.pack, game_status.level)
     if hs ~= nil then
 
-        draw_text(x_offset, 145 + author_y_offset + y_offset, VG.font_small, get_i18n("best:"), "t", default_font_name)
+        draw_text(x_offset, 115 + next_y_offset + author_y_offset + y_offset, VG.font_small, get_i18n("best:"), "t", default_font_name)
         if (is_game_over) and (hs_cache) and (hs < hs_cache) then
-            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs_cache), "t", number_font_name)
+            draw_text(x_offset + moves_w, 115 + next_y_offset + author_y_offset + y_offset, VG.font_small, tostring(hs_cache), "t", number_font_name)
         else
-            draw_text(x_offset + moves_w, 145 + author_y_offset + y_offset, VG.font_small, tostring(hs), "t", number_font_name)
+            draw_text(x_offset + moves_w, 115 + next_y_offset + author_y_offset + y_offset, VG.font_small, tostring(hs), "t", number_font_name)
         end
+        next_y_offset = next_y_offset + 30
 
     end
 end

@@ -83,6 +83,7 @@ function load_misc_images()
     local misc_images = {}
     misc_images["lock"] = Graphics.loadImage(image_dir .. "/lock.png")
     misc_images["check"] = Graphics.loadImage(image_dir .. "/check.png")
+    misc_images["star"] = Graphics.loadImage(image_dir .. "/star.png")
     misc_images["circle"] = Graphics.loadImage(image_dir .. "/btn_circle.png")
     misc_images["cross"] = Graphics.loadImage(image_dir .. "/btn_cross.png")
     misc_images["triangle"] = Graphics.loadImage(image_dir .. "/btn_triangle.png")
