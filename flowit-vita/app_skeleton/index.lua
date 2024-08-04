@@ -22,6 +22,7 @@ loadlib("settings")
 
 loadlib("level_parser")
 loadlib("high_scores")
+loadlib("optimal_scores")
 loadlib("game_logic")
 loadlib("game_drawing")
 loadlib("game_view")

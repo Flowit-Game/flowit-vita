@@ -66,6 +66,7 @@ function load_misc_images()
     local misc_images = {}
     misc_images["lock"]     = love.graphics.newImage("images/lock.png")
     misc_images["check"]    = love.graphics.newImage("images/check.png")
+    misc_images["star"]     = love.graphics.newImage("images/star.png")
     misc_images["circle"]   = love.graphics.newImage("images/btn_circle.png")
     misc_images["cross"]    = love.graphics.newImage("images/btn_cross.png")
     misc_images["triangle"] = love.graphics.newImage("images/btn_triangle.png")
